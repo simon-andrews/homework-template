@@ -1,0 +1,76 @@
+\documentclass{article}
+
+\usepackage{amsmath,amsthm,amssymb,amsfonts} % math symbols
+\usepackage{enumitem} % used for setting default enumerate label to letters e.g. (a), (b), etc.
+\usepackage{fullpage} % make margins smaller
+\usepackage{graphicx} % for embedding images
+\usepackage{hyperref} % clickable and styled links
+\usepackage[utf8]{inputenc} % enable non-ASCII characters
+\usepackage{minted} % code highlighting
+\usepackage{multirow} % enable table cells spanning multiple rows
+
+% set default enumerate label to letters
+\setlist[enumerate]{label={(\alph*)}}
+
+% environment for problems
+\newenvironment{problem}[1]
+{ \begin{trivlist} \item[\hskip \labelsep {\bfseries\Large Problem #1}] \item }
+{ \end{trivlist} }
+
+% environment for solutions (goes inside problems)
+\newenvironment{solution}
+{ \begin{trivlist} \item[\hskip \labelsep {\bfseries\large Solution}] \item }
+{ \end{trivlist} \newpage }
+
+% environment for solution parts for multi-part problems (goes inside solutions)
+\newenvironment{solutionpart}[1]
+{ \begin{trivlist} \item[\hskip \labelsep {\bfseries Part #1}] \item }
+{ \end{trivlist} }
+
+\title{SUBJECT 101: Homework \#0}
+\author{John Q. Public}
+\date{Due \today}
+
+\begin{document}
+
+\maketitle
+
+This is a sample of Simon Andrews's homework template for \LaTeX. This part of the file is a space for you to put whatever you want, such as acknowledgements or notes to the instructors. In this sample, I'll be putting a quick demo for how to use this template.
+
+For every problem in the problem set, create a new .tex file and use the \textbackslash input command to include its contents in this main.tex file. Each problem file should have this structure:
+
+\begin{minted}{latex}
+% Problem statement
+\begin{problem}{N.N.N}
+Jane has 2 apples and Jack has 3 apples. How many apples do both of them have
+\begin{enumerate}
+    \item if Jane eats 1 apple, and
+    \item if Jack eats 2 apples?
+\end{enumerate}
+\end{problem}
+
+% Solution
+\begin{solution}
+
+% Common stuff useful for all problems.
+Jane and Jack together have 5 apples.
+
+% Solution for part A
+\begin{solutionpart}{A}
+If Jane eats 1 apple, Jane and Jack together have $5 - 1 = 4$ apples.
+\end{solutionpart}
+
+% Solution for part B
+\begin{solutionpart}{B}
+If Jack eats 2 apples, Jane and Jack together have $5 - 2 = 3$ apples.
+\end{solutionpart}
+
+\end{solution}
+\end{minted}
+
+\newpage
+
+% Place your problem files here
+\input{1.1.1.tex}
+
+\end{document}
