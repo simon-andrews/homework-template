@@ -1,0 +1,79 @@
+\usepackage{etoolbox} % for ifdefempty (checking for empty strings)
+\usepackage{ifthen} % For more advanced logic
+
+\newboolean{gradescope}
+\setboolean{gradescope}{false}
+
+\newcounter{problem}
+\newcounter{qpart}[problem]
+
+\newboolean{showquestiontext}
+\setboolean{showquestiontext}{true}
+\newcommand{\questiontext}{}
+\newcommand{\question}[1]
+{
+    \renewcommand{\questiontext}{#1}
+    \ifshowquestiontext
+        \begin{trivlist}
+            \item[\hskip \labelsep {\bfseries\Large Problem \arabic{problem}: \problemname}]
+            \item \ifdefempty{\questiontext}{}{\noindent \questiontext}
+        \end{trivlist}
+        \setboolean{showquestiontext}{false}
+    \fi
+}
+
+\newcommand{\subquestion}[1]
+{
+    \ifgradescope
+        \ifdobreak
+            \newpage
+        \fi
+    \fi
+    \ifshowquestiontext
+        \begin{trivlist}
+            \item[\hskip \labelsep {\bfseries\Large Problem \arabic{problem}: \problemname}]
+            \item \ifdefempty{\questiontext}{}{\noindent \questiontext}
+        \end{trivlist}
+    \fi
+    \ifgradescope
+        \setboolean{showquestiontext}{true}
+    \fi
+    \stepcounter{qpart}
+    \begin{trivlist}
+        \item \textbf{Part \arabic{qpart}:} #1
+    \end{trivlist}
+    \setboolean{dobreak}{true}
+}
+
+\newcommand{\solution}[1]
+{
+    \setboolean{dobreak}{false}
+    \begin{trivlist}
+        \item \textbf{Solution:} #1
+    \end{trivlist}
+    \ifgradescope
+        \newpage
+    \fi
+}
+
+\newcommand{\problemname}{}
+\newenvironment{problem}[1]
+{
+    \stepcounter{problem}
+    \renewcommand{\problemname}{#1}
+    \renewcommand{\questiontext}{}
+    \begin{trivlist}
+        \item
+}
+{
+    \end{trivlist}
+    \ifgradescope
+        \newpage
+    \else
+        \vspace{0.5cm}
+    \fi
+    \renewcommand{\questiontext}{}
+}
+
+\newboolean{dobreak}
+\setboolean{dobreak}{false}
